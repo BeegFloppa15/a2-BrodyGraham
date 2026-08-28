@@ -27,7 +27,7 @@ HTML:
 - One or more [HTML Forms](https://developer.mozilla.org/en-US/docs/Learn/HTML/Forms), with any combination of form tags appropriate for the user input portion of the application
 - A results page displaying all data currently available on the server. You will most likely use a `<table>` tag for this, but `<ul>` or `<ol>` could also work and might be simpler to work with. Alternatively, you can create a single-page app (see Technical Acheivements) but this is not a requirement.
 - All pages should [validate](https://validator.w3.org)
-- If your app contains multple pages, they should all be accessible from the homepage (index.html)
+- If your app contains multiple pages, they should all be accessible from the homepage (index.html)
 
 CSS:
 - CSS styling of the primary visual elements in the application
@@ -51,7 +51,7 @@ A starting point is provided in this repository.
 Deliverables
 ---
 
-Do the following to complete this assignment and acheive a base grade of 85%:
+Do the following to complete this assignment and achieve a base grade of 85%:
 
 1. Fork the starting project code. This repo contains some starter code that may be used or discarded as needed.
 2. Implement your project with the above requirements.
@@ -61,10 +61,10 @@ Do the following to complete this assignment and acheive a base grade of 85%:
 6. Modify the README to the specifications below, and delete all of the instructions originally found in this README.
 7. Create and submit a Pull Request to the original repo. Label the pull request as follows: a2-gitusername-firstname-lastname
 
-Acheivements
+Achievements
 ---
 
-Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended acheivements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM. Remember, the highest grade you can get on any individual assignment is a 100%.
+Below are suggested technical and design achievements. You can use these to help boost your grade up to an A and customize the assignment to your personal interests. These are recommended achievements, but feel free to create/implement your own... just make sure you thoroughly describe what you did in your README and why it was challenging. ALL ACHIEVEMENTS MUST BE DESCRIBED IN YOUR README IN ORDER TO GET CREDIT FOR THEM. Remember, the highest grade you can get on any individual assignment is a 100%.
 
 *Technical*
 - (5 points) Create a single-page app that both provides a form for users to submit data and always shows the current state of the server-side data. To put it another way, when the user submits data, the server should respond sending back the updated data (including the derived field calculated on the server) and the client should then update its data display.
@@ -78,14 +78,14 @@ Below are suggested technical and design achievements. You can use these to help
 2. You shouldn't provide any verbal instructions on how to use your interface / accomplish the task you give them. Make sure that your interface is clear enough that users can figure it out without any instruction, or provide text instructions from within the interface itself. 
 3. If users get stuck to the point where they give up, you can then provde instruction so that the study can continue, but make sure to discuss this in your README. You won't lose any points for this... all feedback is good feedback!
 
-You'll need to use sometype of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts, or conduct the studies in person. After completing each study, briefly (one to two sentences for each question) address the following in your README:
+You'll need to use some type of collaborative software that will enable you both to see the test subject's screen and listen to their voice as they describe their thoughts, or conduct the studies in person. After completing each study, briefly (one to two sentences for each question) address the following in your README:
 
 1. Provide the last name of each student you conduct the evaluation with.
 2. What problems did the user have with your design?
 3. What comments did they make that surprised you?
 4. What would you change about the interface based on their feedback?
 
-*You do not need to actually make changes based on their feedback*. This acheivement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
+*You do not need to actually make changes based on their feedback*. This achievement is designed to help gain experience testing user interfaces. If you run two user studies, you should answer two sets of questions. 
 
 Sample Readme (delete the above when you're ready to submit, and modify the below so with your links and descriptions)
 ---
