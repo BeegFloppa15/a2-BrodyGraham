@@ -22,6 +22,6 @@ const submit = async function( event ) {
 }
 
 window.onload = function() {
-   const button = document.querySelector("button");
-  button.onclick = submit;
+  const button = document.querySelector('button')
+  button.onclick = submit
 }
