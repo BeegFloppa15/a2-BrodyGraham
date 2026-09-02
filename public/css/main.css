@@ -1,4 +1,10 @@
+.root{
+  --bg-color: light-dark(rgb(243, 232, 185), rgb(37, 38, 44));
+  --text-color: light-dark(black, white);
+}
+
 body {
-  background:black;
-  color:white;
+  background: var(--bg-color);
+  color:var(--text-color);
+  color-scheme: light dark;
 }

@@ -4,14 +4,11 @@ const http = require( 'http' ),
       // to install the mime library if you're testing this on your local machine.
       // On Render, make sure `npm install` is your build command.
       mime = require( 'mime' ),
+      problems = require( './problems' )
       dir  = 'public/',
       port = 3000
 
-const appdata = [
-  { 'model': 'toyota', 'year': 1999, 'mpg': 23 },
-  { 'model': 'honda', 'year': 2004, 'mpg': 30 },
-  { 'model': 'ford', 'year': 1987, 'mpg': 14} 
-]
+const appdata = []
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -34,18 +31,21 @@ const handleGet = function( request, response ) {
 const handlePost = function( request, response ) {
   let dataString = ''
 
+  // Pull in data until it is complete
   request.on( 'data', function( data ) {
       dataString += data 
   })
 
+  // Once data is complete, parse it
   request.on( 'end', function() {
+    appdata.push(JSON.parse(dataString));
     console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
 
-    // change this to incorporate data
-    response.end('test')
+    // change this to incorporate data (from end to whatever data you want)
+    response.end(JSON.stringify(appdata))
   })
 }
 
