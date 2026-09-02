@@ -23,7 +23,19 @@ const handleGet = function( request, response ) {
 
   if( request.url === '/' ) {
     sendFile( response, 'public/index.html' )
-  }else{
+  }
+  else if (request.url === '/new-problem'){
+    // Get a random problem string
+    let index = parseInt(Math.random() * problems.problemMap.size)
+    console.log(`Map size = ${problems.problemMap.size}, rand index = ${index}`)
+    var currentProblem = [...problems.problemMap.keys()][index]
+
+    // Send the current problem string to the client
+    console.log("current Problem: " + currentProblem)
+    response.writeHeader(200, "OK", {'Content-Type': 'text/plain' })
+    response.end(currentProblem)
+  }
+  else{
     sendFile( response, filename )
   }
 }
@@ -41,6 +53,8 @@ const handlePost = function( request, response ) {
     appdata.push(JSON.parse(dataString));
     console.log( JSON.parse( dataString ) )
     // ... do something with the data here!!!
+
+    
 
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
 
