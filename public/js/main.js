@@ -13,6 +13,7 @@ const submit = async function( event ) {
   
   const input = document.querySelector( '#answer' ),
   //TODO: name entry
+  //this is userData on the server
         json = { 
           username: "",
           problem: currentProblem,
@@ -28,13 +29,10 @@ const submit = async function( event ) {
   const data = await response.json();
   console.log( 'text:', data );
 
-  ul.innerHTML = ''
-  // Create a list item for each JSON entry
-  for (let item of data){
-    const li = document.createElement('li')
-    li.innerText = `${item.yourname}`
-    ul.appendChild(li)
-  }
+  // TODO: Figure out good way to display player stats on the page
+  const li = document.createElement('li')
+  li.innerText = JSON.stringify(data.user)
+  ul.appendChild(li)
 
 }
 

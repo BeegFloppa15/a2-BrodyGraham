@@ -5,10 +5,11 @@ const http = require( 'http' ),
       // On Render, make sure `npm install` is your build command.
       mime = require( 'mime' ),
       problems = require( './problems' )
+      Player = require('./player')
       dir  = 'public/',
       port = 3000
 
-const appdata = []
+const playerData = new Map();
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -26,9 +27,7 @@ const handleGet = function( request, response ) {
   }
   else if (request.url === '/new-problem'){
     // Get a random problem string
-    let index = parseInt(Math.random() * problems.problemMap.size)
-    console.log(`Map size = ${problems.problemMap.size}, rand index = ${index}`)
-    var currentProblem = [...problems.problemMap.keys()][index]
+    let currentProblem = problems.randomProblem();
 
     // Send the current problem string to the client
     console.log("current Problem: " + currentProblem)
@@ -50,16 +49,49 @@ const handlePost = function( request, response ) {
 
   // Once data is complete, parse it
   request.on( 'end', function() {
-    appdata.push(JSON.parse(dataString));
-    console.log( JSON.parse( dataString ) )
+    let userData = JSON.parse(dataString)
+    console.log( userData )
     // ... do something with the data here!!!
 
-    
+    let currPlayer = playerData.get(userData.username)
 
-    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    // Check if the answer is correct
+    let answers = problems.problemMap.get(userData.problem)
+    if (answers.includes(parseInt(userData.answer))){
+      console.log("CORRECT!")
+
+      // Update Player's stats in memory
+      if (currPlayer !== undefined){
+        currPlayer.totalGuesses += 1;
+        currPlayer.correctGuesses += 1;
+        currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
+      }
+      else{
+        let newPlayer = new Player.Player(userData.username, 1, 1)
+        playerData.set(userData.username, newPlayer)
+        currPlayer = newPlayer
+      }
+
+      console.log(`${userData.username} data in memory: ${currPlayer.toString()}`)
+
+      //TODO: Send updated player stats to the client, and serve a new problem
+      let reply = {
+        problem: problems.randomProblem(),
+        user: currPlayer.jsonify()
+      }
+      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+      response.end(JSON.stringify(reply))
+    }
+    else {
+      console.log("INCORRECT!")
+      // TODO: Update Player's stats in memory
+
+    }
+
+    //response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
 
     // change this to incorporate data (from end to whatever data you want)
-    response.end(JSON.stringify(appdata))
+    //response.end(JSON.stringify("end"))
   })
 }
 
