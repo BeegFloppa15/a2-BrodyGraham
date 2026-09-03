@@ -1,10 +1,21 @@
-.root{
-  --bg-color: light-dark(rgb(243, 232, 185), rgb(37, 38, 44));
+:root{
+  --bg-color: light-dark(rgb(235, 234, 231), rgb(37, 38, 44));
   --text-color: light-dark(black, white);
 }
 
 body {
-  background: var(--bg-color);
-  color:var(--text-color);
   color-scheme: light dark;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+main{
+  margin: 0 auto;
+  max-width: 50em;
+  text-align: center;
+}
+
+h1{
+  font-family: "Oswald";
 }
