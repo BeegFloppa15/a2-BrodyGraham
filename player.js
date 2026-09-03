@@ -22,23 +22,41 @@ class Player{
 
 class Leaderboard{
     constructor(){
-        this.board = new Map();
+        this.board = []
     }
 
     sortLeaderboard(){
-        let presort = [...this.board.values()]
-        console.log("List of entries before sorting:" + presort)
+        this.board.sort((a,b) => a.correctGuesses - b.correctGuesses).reverse()
+    }
 
-        let postsort = presort.sort((a, b) => parseInt(a.correctGuesses) - parseInt(b.correctGuesses))
-        console.log("List of entries AFTER sorting:" + postsort)
-        console.log("2nd Element: " + postsort[1])
+    get(username){
+        return this.board.find((element) => element.username === username)
+    }
 
-        let tempBoard = new Map()
-        for (let user in postsort){
-            console.log(`Attempting to set ${user.username} to ${user.toString()}`)
-            tempBoard.set(user.username, user)
+    correctAnswer(username){
+        let currPlayer = this.get(username)
+        if (currPlayer !== undefined){
+            currPlayer.totalGuesses += 1;
+            currPlayer.correctGuesses += 1;
+            currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
+            }
+            else{
+            this.board.push(new Player(username, 1, 1))
         }
-        this.board = tempBoard
+
+        this.sortLeaderboard()
+    }
+
+    incorrectAnswer(username){
+        let currPlayer = this.get(username)
+        if (currPlayer !== undefined){
+            currPlayer.totalGuesses += 1;
+            currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
+        }
+        else{
+            this.board.push(new Player(username, 1, 0))
+        }
+        this.sortLeaderboard()
     }
 }
 

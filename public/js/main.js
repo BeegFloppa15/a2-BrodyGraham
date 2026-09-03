@@ -3,6 +3,7 @@
 let ul = null;
 let currentProblem = null;
 let problemElement = null;
+let leaderboardTable = null;
 let username = ""
 
 const submit = async function( event ) {
@@ -29,10 +30,13 @@ const submit = async function( event ) {
   const data = await response.json();
   console.log( 'text:', data );
 
-  // TODO: Figure out good way to display player stats on the page
-  const li = document.createElement('li')
-  li.innerText = JSON.stringify(data.user)
-  ul.appendChild(li)
+  updateLeaderboard(data['all-players'])
+
+  if (data.problem !== undefined){
+    // TODO : Do some cool effect to show if they got problem right or wrong
+    currentProblem = data.problem
+    problemElement.innerText = data.problem
+  }
 
 }
 
@@ -42,6 +46,19 @@ const start = async function(event){
   username = nameInput.value
   let problemText = await requestNewProblem()
   problemElement.innerText = problemText
+}
+
+function updateLeaderboard(allPlayers){
+  leaderboardTable.innerHTML = ""
+  for (let i = 0; i < allPlayers.length; i++){
+    leaderboardTable.innerHTML += `<tr>
+            <td>${i + 1}</td>
+            <td>${allPlayers[i].username}</td>
+            <td>${allPlayers[i].correctGuesses}</td>
+            <td>${allPlayers[i].totalGuesses}</td>
+            <td>${allPlayers[i].percentage}</td>
+          </tr>`
+  }
 }
 
 async function requestNewProblem(){
@@ -61,6 +78,8 @@ window.onload = function() {
   submitButton.onclick = submit
 
   problemElement = document.getElementById('problem')
+
+  leaderboardTable = document.querySelector('#leaderboard-players')
 
   //Creating html element and adding it to the body
   ul = document.createElement('ul');

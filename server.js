@@ -9,7 +9,7 @@ const http = require( 'http' ),
       dir  = 'public/',
       port = 3000
 
-const playerData = new Map();
+const playerData = new Player.Leaderboard();
 
 const server = http.createServer( function( request,response ) {
   if( request.method === 'GET' ) {
@@ -53,8 +53,10 @@ const handlePost = function( request, response ) {
     console.log( userData )
     // ... do something with the data here!!!
 
-    let currPlayer = playerData.get(userData.username)
-    let reply
+    let reply = {
+      "all-players": undefined,
+      "problem": undefined
+    }
 
     // Check if the answer is correct
     let answers = problems.problemMap.get(userData.problem)
@@ -62,22 +64,10 @@ const handlePost = function( request, response ) {
       console.log("CORRECT!")
 
       // Update Player's stats in memory
-      if (currPlayer !== undefined){
-        currPlayer.totalGuesses += 1;
-        currPlayer.correctGuesses += 1;
-        currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
-      }
-      else{
-        let newPlayer = new Player.Player(userData.username, 1, 1)
-        playerData.set(userData.username, newPlayer)
-        currPlayer = newPlayer
-      }
+      playerData.correctAnswer(userData.username)
 
       // Serve player data and a new problem
-      reply = {
-        problem: problems.randomProblem(),
-        user: currPlayer.jsonify()
-      }
+      reply.problem = problems.randomProblem()
       
     }
     // Answer is wrong
@@ -85,24 +75,10 @@ const handlePost = function( request, response ) {
       console.log("INCORRECT!")
 
       // Update Player's stats in memory
-      if (currPlayer !== undefined){
-        currPlayer.totalGuesses += 1;
-        currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
-      }
-      else{
-        let newPlayer = new Player.Player(userData.username, 1, 0)
-        playerData.set(userData.username, newPlayer)
-        currPlayer = newPlayer
-      }
-
-      // Serve just the player data
-      reply = {
-        user: currPlayer.jsonify()
-      }
-
+      playerData.incorrectAnswer(userData.username)
     }
-
-    console.log(`${userData.username} data in memory: ${currPlayer.toString()}`)
+    reply['all-players'] = playerData.board
+    console.log(`New Leaderboard: \n ${reply['all-players']}`)
 
     // TODO: Change from sending individual user data to entire user leaderboard
     // Send data to the client: includes "problem" if they got it right
