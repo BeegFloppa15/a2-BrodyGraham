@@ -3,6 +3,7 @@
 let ul = null;
 let currentProblem = null;
 let problemElement = null;
+let username = ""
 
 const submit = async function( event ) {
   // stop form submission from trying to load
@@ -12,10 +13,9 @@ const submit = async function( event ) {
   event.preventDefault()
   
   const input = document.querySelector( '#answer' ),
-  //TODO: name entry
   //this is userData on the server
         json = { 
-          username: "",
+          username: username,
           problem: currentProblem,
           answer: input.value },
         body = JSON.stringify( json )
@@ -38,6 +38,8 @@ const submit = async function( event ) {
 
 const start = async function(event){
   event.preventDefault()
+  const nameInput = document.querySelector("#username")
+  username = nameInput.value
   let problemText = await requestNewProblem()
   problemElement.innerText = problemText
 }

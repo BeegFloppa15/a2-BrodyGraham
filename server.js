@@ -54,6 +54,7 @@ const handlePost = function( request, response ) {
     // ... do something with the data here!!!
 
     let currPlayer = playerData.get(userData.username)
+    let reply
 
     // Check if the answer is correct
     let answers = problems.problemMap.get(userData.problem)
@@ -72,26 +73,40 @@ const handlePost = function( request, response ) {
         currPlayer = newPlayer
       }
 
-      console.log(`${userData.username} data in memory: ${currPlayer.toString()}`)
-
-      //TODO: Send updated player stats to the client, and serve a new problem
-      let reply = {
+      // Serve player data and a new problem
+      reply = {
         problem: problems.randomProblem(),
         user: currPlayer.jsonify()
       }
-      response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
-      response.end(JSON.stringify(reply))
+      
     }
+    // Answer is wrong
     else {
       console.log("INCORRECT!")
-      // TODO: Update Player's stats in memory
+
+      // Update Player's stats in memory
+      if (currPlayer !== undefined){
+        currPlayer.totalGuesses += 1;
+        currPlayer.percentage = currPlayer.correctGuesses / currPlayer.totalGuesses
+      }
+      else{
+        let newPlayer = new Player.Player(userData.username, 1, 0)
+        playerData.set(userData.username, newPlayer)
+        currPlayer = newPlayer
+      }
+
+      // Serve just the player data
+      reply = {
+        user: currPlayer.jsonify()
+      }
 
     }
 
-    //response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    console.log(`${userData.username} data in memory: ${currPlayer.toString()}`)
 
-    // change this to incorporate data (from end to whatever data you want)
-    //response.end(JSON.stringify("end"))
+    // Send data to the client: includes "problem" if they got it right
+    response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
+    response.end(JSON.stringify(reply))
   })
 }
 
