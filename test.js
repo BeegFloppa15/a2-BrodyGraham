@@ -1,19 +1,13 @@
-let successJSON = {
-    problem: "2 + 2",
-    user: {
-        fuck: "bruh",
-        shit: "15"
-    }
-}
+const Player = require('./player')
 
-let failJSON = {
-    user: {
-        fuck: "WEEE",
-        shit: "27"
-    }
-}
+let leaderboard = new Player.Leaderboard()
 
-console.log(successJSON.problem)
-console.log(successJSON.user.fuck)
-console.log(failJSON.problem)
-console.log(failJSON.user.fuck)
+leaderboard.board.set("grungus12", new Player.Player("grungus12", 13, 6))
+leaderboard.board.set("bingus11", new Player.Player("bingus 11", 9, 8))
+leaderboard.board.set("bingus13", new Player.Player("Joe 13", 9, 0))
+
+console.log(leaderboard.board)
+
+leaderboard.sortLeaderboard()
+
+console.log(leaderboard.board)
