@@ -10,18 +10,25 @@
     <link rel='icon' href='data:;base64,iVBORw0KGgo=' />
   </head>
   <body>
-    <form>
-      <p>Enter Your Name</p>
-      <input type='text' id="username">
-    </form>
-    <button>Start</button>
-    <form>
+    <header>
+      <button id="back" class="game-element" hidden>Back</button>
+    </header>
+    <section class="menu-element">
+      <form>
+        <p>Enter Your Name</p>
+        <input type='text' id="username">
+      </form>
+      <button id="start">Start</button>
+    </section>
+    <section class="game-element" hidden>
       <h1>Solve The Problem</h1>
-      <p id="problem">???</p>
-      <input type='text' id='answer' value=''>
-      <button id ='submit'>submit</button>
-    </form>
-    <section>
+      <form>
+        <p id="problem">???</p>
+        <input type='text' id='answer' value=''>
+        <button id ='submit'>submit</button>
+      </form>
+    </section>
+    <section class="game-element" hidden>
       <h1>Leaderboard</h1>
       <table>
         <thead>

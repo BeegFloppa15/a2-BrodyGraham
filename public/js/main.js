@@ -26,6 +26,8 @@ const submit = async function( event ) {
     body 
   })
 
+  input.value = ""
+
   //Recieve JSON data from the server
   const data = await response.json();
   console.log( 'text:', data );
@@ -44,6 +46,17 @@ const start = async function(event){
   event.preventDefault()
   const nameInput = document.querySelector("#username")
   username = nameInput.value
+
+  let menus = Array.from(document.getElementsByClassName("menu-element"))
+  menus.map((element) => element.hidden = true)
+  let game = Array.from(document.getElementsByClassName("game-element"))
+  game.map((element) => element.hidden = false)
+
+  // const problemSec = document.getElementById("problem-section")
+  // problemSec.hidden = false
+  // const leaderBoardSec = document.getElementById("leaderboard-section")
+  // leaderBoardSec.hidden = false
+
   let problemText = await requestNewProblem()
   problemElement.innerText = problemText
 }
@@ -73,9 +86,21 @@ async function requestNewProblem(){
   return currentProblem
 }
 
+function back(){
+  currentProblem = null
+  username = ""
+
+  let menus = Array.from(document.getElementsByClassName("menu-element"))
+  menus.map((element) => element.hidden = false)
+  let game = Array.from(document.getElementsByClassName("game-element"))
+  game.map((element) => element.hidden = true)
+}
+
 window.onload = function() {
-  const startButton = document.querySelector('button')
+  const startButton = document.querySelector('#start')
   startButton.onclick = start
+  const backButton = document.querySelector("#back")
+  backButton.onclick = back
 
   const submitButton = document.getElementById('submit')
   submitButton.onclick = submit
