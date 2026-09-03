@@ -28,11 +28,17 @@ const handleGet = function( request, response ) {
   else if (request.url === '/new-problem'){
     // Get a random problem string
     let currentProblem = problems.randomProblem();
+    
+    // Create message with random problem and leaderboard
+    let message = {
+      "problem": currentProblem,
+      "leaderboard": playerData.board
+    }
 
     // Send the current problem string to the client
     console.log("current Problem: " + currentProblem)
     response.writeHeader(200, "OK", {'Content-Type': 'text/plain' })
-    response.end(currentProblem)
+    response.end(JSON.stringify(message))
   }
   else{
     sendFile( response, filename )

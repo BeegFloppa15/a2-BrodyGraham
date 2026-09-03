@@ -51,6 +51,7 @@ const start = async function(event){
 function updateLeaderboard(allPlayers){
   leaderboardTable.innerHTML = ""
   for (let i = 0; i < allPlayers.length; i++){
+    //TODO: Display percentage as actual percentage
     leaderboardTable.innerHTML += `<tr>
             <td>${i + 1}</td>
             <td>${allPlayers[i].username}</td>
@@ -65,8 +66,10 @@ async function requestNewProblem(){
   const response = await fetch('/new-problem',{method: "GET"})
 
   // Problem is a string that represents the problem the user will get. 
-  currentProblem = await response.text()
+  let temp = await response.json()
+  currentProblem = temp.problem
   console.log(currentProblem)
+  updateLeaderboard(temp.leaderboard)
   return currentProblem
 }
 
