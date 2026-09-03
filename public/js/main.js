@@ -46,16 +46,12 @@ const start = async function(event){
   event.preventDefault()
   const nameInput = document.querySelector("#username")
   username = nameInput.value
+  document.getElementById("usernameDisplay").innerText = username
 
   let menus = Array.from(document.getElementsByClassName("menu-element"))
   menus.map((element) => element.hidden = true)
   let game = Array.from(document.getElementsByClassName("game-element"))
   game.map((element) => element.hidden = false)
-
-  // const problemSec = document.getElementById("problem-section")
-  // problemSec.hidden = false
-  // const leaderBoardSec = document.getElementById("leaderboard-section")
-  // leaderBoardSec.hidden = false
 
   let problemText = await requestNewProblem()
   problemElement.innerText = problemText
