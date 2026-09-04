@@ -57,4 +57,34 @@ header{
   border-radius: 10px;
 }
 
-/*TODO: Style the leaderboard table*/
+#result{
+  background-color: green;
+  color: white;
+  opacity: 0%;
+  width: 50%;
+  border-radius: 10px;
+  padding: 5px 10px;
+  margin: 10px auto;
+  transition:
+    opacity 0.5s;
+}
+
+/*Leaderboard table styling*/
+table{
+  width: 100%;
+  border: 2px solid var(--text-color)
+}
+
+thead{
+  background-color: var(--header-color);
+}
+
+tbody{
+  tr:nth-of-type(even){
+    background-color: rgb(from var(--text-color) r g b / 0.05);
+  }
+}
+
+td{
+  padding: 0px;
+}

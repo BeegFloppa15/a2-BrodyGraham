@@ -5,6 +5,8 @@ let currentProblem = null;
 let problemElement = null;
 let leaderboardTable = null;
 let username = ""
+let transitionTimer
+const decimalFormat = new Intl.NumberFormat('en-US', {style: 'percent'})
 
 const submit = async function( event ) {
   // stop form submission from trying to load
@@ -35,9 +37,32 @@ const submit = async function( event ) {
   updateLeaderboard(data['all-players'])
 
   if (data.problem !== undefined){
-    // TODO : Do some cool effect to show if they got problem right or wrong
+    // Show "Correct" element for 2 seconds
+    const displayThing = document.getElementById("result")
+    clearTimeout(transitionTimer)
+    displayThing.innerHTML = "<h1>Correct!</h1>"
+
+    displayThing.style.transition= ""
+    displayThing.style.opacity = "100%"
+    displayThing.style.backgroundColor = "green";
+    transitionTimer = setTimeout(function(){
+      displayThing.style.opacity = "0%"
+    }, 1000)
+
     currentProblem = data.problem
     problemElement.innerText = data.problem
+    
+  }
+  else{
+    // Show "incorrect" element for 2 seconds
+    clearTimeout(transitionTimer)
+    const displayThing = document.getElementById("result")
+    displayThing.innerHTML = "<h1>Incorrect!</h1>"
+    displayThing.style.opacity = "100%"
+    displayThing.style.backgroundColor = "red";
+    transitionTimer = setTimeout(function(){
+      displayThing.style.opacity = "0%"
+    }, 2000)
   }
 
 }
@@ -60,16 +85,16 @@ const start = async function(event){
 function updateLeaderboard(allPlayers){
   leaderboardTable.innerHTML = ""
   for (let i = 0; i < allPlayers.length; i++){
-    //TODO: Display percentage as actual percentage
     leaderboardTable.innerHTML += `<tr>
             <td>${i + 1}</td>
             <td>${allPlayers[i].username}</td>
             <td>${allPlayers[i].correctGuesses}</td>
             <td>${allPlayers[i].totalGuesses}</td>
-            <td>${allPlayers[i].percentage}</td>
+            <td>${decimalFormat.format(allPlayers[i].percentage)}</td>
           </tr>`
   }
 }
+
 
 async function requestNewProblem(){
   const response = await fetch('/new-problem',{method: "GET"})
