@@ -1,9 +1,11 @@
 :root{
-  --bg-color: light-dark(rgb(235, 234, 231), rgb(37, 38, 44));
+  --bg-color: light-dark(rgb(255, 255, 255), rgb(37, 38, 44));
+  --header-color: light-dark(rgb(241, 241, 236), rgb(25, 26, 27));
   --text-color: light-dark(black, white);
 }
 
 body {
+  /*TODO color mode changer? wishlist*/
   color-scheme: light dark;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -19,3 +21,31 @@ main{
 h1{
   font-family: "Oswald";
 }
+
+form{
+  input{
+    display: block;
+    margin: 10px auto;
+    width: 50%;
+    height: 20%;
+    font-size: 32px;
+    text-align: center;
+    
+  }
+}
+
+header{
+  display: grid;
+  grid-template-columns: 20% 60% 20%;
+  grid-template-rows: 100%;
+  min-height: 50px;
+  padding: 10px 10px;
+  margin: 0 0;
+  background-color: var(--header-color);
+
+  p{
+    text-align: right;
+  }
+}
+
+/*TODO: Style the leaderboard table*/

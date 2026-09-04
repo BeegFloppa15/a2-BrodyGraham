@@ -86,7 +86,6 @@ const handlePost = function( request, response ) {
     reply['all-players'] = playerData.board
     console.log(`New Leaderboard: \n ${reply['all-players']}`)
 
-    // TODO: Change from sending individual user data to entire user leaderboard
     // Send data to the client: includes "problem" if they got it right
     response.writeHead( 200, "OK", {'Content-Type': 'text/plain' })
     response.end(JSON.stringify(reply))

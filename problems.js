@@ -1,5 +1,6 @@
 let problemMap = new Map();
 
+// TODO: Add some more problems
 problemMap.set("2 + 2", [4]);
 problemMap.set("Square Root of 144", [12]);
 
