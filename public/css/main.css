@@ -1,7 +1,7 @@
 :root{
-  --bg-color: light-dark(rgb(255, 255, 255), rgb(37, 38, 44));
-  --header-color: light-dark(rgb(241, 241, 236), rgb(25, 26, 27));
+  --bg-color: light-dark(rgb(251, 247, 222), rgb(37, 38, 44));
   --text-color: light-dark(black, white);
+  --header-color: rgb(from var(--text-color) r g b / 0.2)/*light-dark(rgb(241, 241, 236), rgb(25, 26, 27));*/
 }
 
 body {
@@ -46,6 +46,15 @@ header{
   p{
     text-align: right;
   }
+}
+
+#problem{
+  background-color: rgb(239, 239, 239);
+  color: black;
+  font-size: 24pt;
+  font-family:'Times New Roman', Times, serif;
+  padding: 18px 18px;
+  border-radius: 10px;
 }
 
 /*TODO: Style the leaderboard table*/
